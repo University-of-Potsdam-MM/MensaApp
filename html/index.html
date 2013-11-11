@@ -8,6 +8,7 @@
   <title></title>
   
   <link rel="stylesheet" href="jquery.mobile-1.3.2.min.css">
+  <link rel="stylesheet" href="style.css">
   <script src="jquery-1.10.2.min.js"></script>
   <script src="jquery.mobile-1.3.2.min.js"></script>
   <script src="scripts/cxf-utils.js"></script>
@@ -38,90 +39,72 @@
             </div>
         </div>
         <div data-role="content">
-            <ul data-role="listview" data-divider-theme="b" data-inset="true">
-                <li data-role="list-divider" role="heading">
-                    Nach Tag
-                </li>
-                <li data-theme="c">
-                    <a href="#today" data-transition="slide">
+            <div data-role="collapsible-set" data-theme="b" data-content-theme="b">
+                <div data-role="collapsible" data-collapsed="false">
+                    <h3>
                         Heute
-                    </a>
-                </li>
-                <li data-theme="c">
-                    <a href="#page1" data-transition="slide">
-                        Morgen
-                    </a>
-                </li>
-                <li data-role="list-divider" role="heading">
-                    Nach Datum
-                </li>
-                <li data-theme="c">
-                    <a href="#page1" data-transition="slide">
-                        28.10.
-                    </a>
-                </li>
-                <li data-theme="c">
-                    <a href="#page1" data-transition="slide">
-                        29.10.
-                    </a>
-                </li>
-                <li data-theme="c">
-                    <a href="#page1" data-transition="slide">
-                        30.10.
-                    </a>
-                </li>
-                <li data-theme="c">
-                    <a href="#page1" data-transition="slide">
-                        31.10.
-                    </a>
-                </li>
-                <li data-theme="c">
-                    <a href="#page1" data-transition="slide">
-                        01.11.
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!-- Todays menus -->
-    <div data-role="page" id="today">
-        <div data-theme="a" data-role="header">
-            <h3>
-                Auswahl heute
-            </h3>
-            <div data-role="fieldcontain">
-                <select id="location-menu-detail" name="">
-                    <option value="NeuesPalais">
-                        Neues Palais
-                    </option>
-                    <option value="Golm">
-                        Golm
-                    </option>
-                    <option value="Griebnitzsee">
-                        Griebnitzsee
-                    </option>
-                </select>
-            </div>
-        </div>
-        <div data-role="content" style="padding: 0px">
-			<div style="background-color: white; border-bottom: 1px solid black; padding: 5px">
-				<h3>Angebot 1</h3>
-				<div>Nudeln mit pikanter Paprikasauce und Reibekäse</div>
-				<div style="color: darkblue">1,40€ / 2,40€ / 3,40€</div>
-			</div>
+                    </h3>
 
-            <h3>Angebot 2</h3>
-            <p>Würziges Schweinefleisch mit Paprika und Thymian, dazu junge Erbsen und Bio-Reis</p>
-            <p>1,40€ / 2,40€ / 3,40€</p>
-            <h3>Angebot 3</h3>
-            <p>Hähnchen Cordon bleu mit Sauce Maltaise und Brokkoli, dazu Herzoginkartoffeln</p>
-            <p>1,40€ / 2,40€ / 3,40€</p>
-            <h3>Alternativ-Angebot</h3>
-            <p>Vegetarische Frühlingsrolle auf asiatischem Gemüse in Kokos-Currysauce, dazu Bratnudeln</p>
-            <p>1,40€ / 2,40€ / 3,40€</p>
-            <h3>Nudeltheke</h3>
-            <p>Ravioli gefüllt mit Spinat, dazu Käsesoße</p>
-            <p>1,40€ / 2,40€ / 3,40€ <img style="width: 15px; height: 15px" src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/mais.png" /> <img style="width: 15px; height: 15px" src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/sau.png"></img></p>
+                    <div class="meal">
+                        <h4>Angebot 1</h4>
+
+                        <div class="ingredient-host">
+                            <img class="ingredient" src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/mais.png" />
+                            <img class="ingredient" src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/sau.png" />
+                        </div>
+
+                        <p>Nudeln mit pikanter Paprikasauce und Reibekäse</p>
+                        <p style="color: #7d7d7d">1,40€ / 2,40€ / 3,40€</p>
+                    </div>
+
+                    <div class="meal">
+                        <h4>Angebot 2</h4>
+                        <p>Würziges Schweinefleisch mit Paprika und Thymian, dazu junge Erbsen und Bio-Reis</p>
+                        <p>1,40€ / 2,40€ / 3,40€</p>
+                    </div>
+
+                    <div class="meal">
+                        <h4>Angebot 3</h4>
+                        <p>Hähnchen Cordon bleu mit Sauce Maltaise und Brokkoli, dazu Herzoginkartoffeln</p>
+                        <p>1,40€ / 2,40€ / 3,40€</p>
+                    </div>
+
+                    <div class="meal">
+                        <h4>Alternativ-Angebot</h4>
+                        <p>Vegetarische Frühlingsrolle auf asiatischem Gemüse in Kokos-Currysauce, dazu Bratnudeln</p>
+                        <p>1,40€ / 2,40€ / 3,40€</p>
+                    </div>
+
+                    <div class="meal">
+                        <h4>Nudeltheke</h4>
+                        <p>Ravioli gefüllt mit Spinat, dazu Käsesoße</p>
+                        <p>1,40€ / 2,40€ / 3,40€ <img style="width: 15px; height: 15px" src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/mais.png" /> <img style="width: 15px; height: 15px" src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/sau.png" /></p>
+                    </div>
+                </div>
+                <div data-role="collapsible" data-collapsed="true">
+                    <h3>
+                        Morgen
+                    </h3>
+                    <h2>
+                        Heading
+                    </h2>
+                </div>
+                <div data-role="collapsible" data-collapsed="true">
+                    <h3>
+                        13.11.
+                    </h3>
+                </div>
+                <div data-role="collapsible" data-collapsed="true">
+                    <h3>
+                        14.11.
+                    </h3>
+                </div>
+                <div data-role="collapsible" data-collapsed="true">
+                    <h3>
+                        15.11.
+                    </h3>
+                </div>
+            </div>
         </div>
     </div>
 </div>
