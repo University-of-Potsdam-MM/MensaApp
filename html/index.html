@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <title></title>
-  
-  <link rel="stylesheet" href="jquery.mobile-1.3.2.min.css">
-  <link rel="stylesheet" href="style.css">
-  <script src="jquery-1.10.2.min.js"></script>
-  <script src="jquery.mobile-1.3.2.min.js"></script>
-  <script src="scripts/cxf-utils.js"></script>
-  <script src="scripts/mensaParserWs.js"></script>
-  <script src="scripts/mensa-logic.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+
+    <link rel="stylesheet" href="jquery.mobile-1.3.2.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-1.10.2.min.js"></script>
+    <script src="jquery.mobile-1.3.2.min.js"></script>
+    <script src="underscore-min.js"></script>
+    <script src="scripts/cxf-utils.js"></script>
+    <script src="scripts/mensaParserWs.js"></script>
+    <script src="scripts/mensa-logic.js"></script>
+
+    <script type="text/html" id="meal-template">
+        <div class="meal">
+            <h4 class="meal-header">Angebot 1</h4>
+
+            <div class="ingredient-host">
+                <img class="ingredient"
+                     src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/mais.png"/>
+                <img class="ingredient"
+                     src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/sau.png"/>
+            </div>
+
+            <p>Nudeln mit pikanter Paprikasauce und Reibekäse</p>
+
+            <p class="meal-price">1,40€ / 2,40€ / 3,40€</p>
+        </div>
+    </script>
 </head>
 <body>
 <div>
@@ -24,6 +42,7 @@
             <h3>
                 Mensa-Beispiel
             </h3>
+
             <div data-role="fieldcontain">
                 <select id="location-menu" name="">
                     <option value="NeuesPalais">
@@ -41,53 +60,14 @@
         <div data-role="content">
             <div data-role="collapsible-set" data-theme="b" data-content-theme="b">
                 <div data-role="collapsible" data-collapsed="false">
-                    <h3>
-                        Heute
-                    </h3>
+                    <h3>Heute</h3>
 
-                    <div class="meal">
-                        <h4>Angebot 1</h4>
-
-                        <div class="ingredient-host">
-                            <img class="ingredient" src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/mais.png" />
-                            <img class="ingredient" src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/sau.png" />
-                        </div>
-
-                        <p>Nudeln mit pikanter Paprikasauce und Reibekäse</p>
-                        <p style="color: #7d7d7d">1,40€ / 2,40€ / 3,40€</p>
-                    </div>
-
-                    <div class="meal">
-                        <h4>Angebot 2</h4>
-                        <p>Würziges Schweinefleisch mit Paprika und Thymian, dazu junge Erbsen und Bio-Reis</p>
-                        <p>1,40€ / 2,40€ / 3,40€</p>
-                    </div>
-
-                    <div class="meal">
-                        <h4>Angebot 3</h4>
-                        <p>Hähnchen Cordon bleu mit Sauce Maltaise und Brokkoli, dazu Herzoginkartoffeln</p>
-                        <p>1,40€ / 2,40€ / 3,40€</p>
-                    </div>
-
-                    <div class="meal">
-                        <h4>Alternativ-Angebot</h4>
-                        <p>Vegetarische Frühlingsrolle auf asiatischem Gemüse in Kokos-Currysauce, dazu Bratnudeln</p>
-                        <p>1,40€ / 2,40€ / 3,40€</p>
-                    </div>
-
-                    <div class="meal">
-                        <h4>Nudeltheke</h4>
-                        <p>Ravioli gefüllt mit Spinat, dazu Käsesoße</p>
-                        <p>1,40€ / 2,40€ / 3,40€ <img style="width: 15px; height: 15px" src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/mais.png" /> <img style="width: 15px; height: 15px" src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/sau.png" /></p>
-                    </div>
+                    <div id="todaysMeals"></div>
                 </div>
                 <div data-role="collapsible" data-collapsed="true">
                     <h3>
                         Morgen
                     </h3>
-                    <h2>
-                        Heading
-                    </h2>
                 </div>
                 <div data-role="collapsible" data-collapsed="true">
                     <h3>

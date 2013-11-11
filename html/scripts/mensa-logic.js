@@ -2,6 +2,15 @@ $(document).ready(function(){
     $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
 
+    var template = $("#meal-template").clone().html();
+    var compiled = _.template(template);
+
+    var htmlMeal = compiled({});
+
+    $("#todaysMeals").append(htmlMeal);
+    $("#todaysMeals").append(htmlMeal);
+    $("#todaysMeals").append(htmlMeal);
+
     loadCurrentMeals("01.11.2013", "Griebnitzsee", null, null);
 });
 
