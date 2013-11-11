@@ -5,7 +5,7 @@ $(document).ready(function(){
     var template = $("#meal-template").clone().html();
     var compiled = _.template(template);
 
-    var htmlMeal = compiled({});
+    var htmlMeal = compiled({title: "Angebot 1", description: "Nudeln mit pikanter Paprikasauce und Reibekäse", prices: "1,40€ / 2,50€ / 4,50€", ingredients: ["http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/mais.png", "http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/sau.png", "http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/fisch.png"]});
 
     $("#todaysMeals").append(htmlMeal);
     $("#todaysMeals").append(htmlMeal);

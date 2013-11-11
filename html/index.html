@@ -18,18 +18,17 @@
 
     <script type="text/html" id="meal-template">
         <div class="meal">
-            <h4 class="meal-header">Angebot 1</h4>
+            <h4 class="meal-header"><%= title %></h4>
 
             <div class="ingredient-host">
-                <img class="ingredient"
-                     src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/mais.png"/>
-                <img class="ingredient"
-                     src="http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/sau.png"/>
+                <% _.each(ingredients, function(link) { %>
+                    <img class="ingredient" src="<%= link %>"/>
+                <% }); %>
             </div>
 
-            <p>Nudeln mit pikanter Paprikasauce und Reibekäse</p>
+            <p><%= description %></p>
 
-            <p class="meal-price">1,40€ / 2,40€ / 3,40€</p>
+            <p class="meal-price"><%= prices %></p>
         </div>
     </script>
 </head>
