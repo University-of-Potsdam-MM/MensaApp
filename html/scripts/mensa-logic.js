@@ -71,7 +71,7 @@ function drawMeals(meals, icons) {
     for (var dayIndex in meals) {
         // Prepare data for day section
         var dayData = {};
-        dayData.title = meals[dayIndex].key;
+        dayData.title = new Date(meals[dayIndex].key).toLocaleDateString();
         dayData.contentId = _.uniqueId("id_");
 
         // Add day section to html
