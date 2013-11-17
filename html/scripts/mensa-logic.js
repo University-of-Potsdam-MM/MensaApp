@@ -9,15 +9,6 @@ $(document).on("pageinit", "#start", function () {
         alert("Neue Mensa: " + mensa);
     });
 
-    var template = $("#meal-template").clone().html();
-    var compiled = _.template(template);
-
-    var htmlMeal = compiled({title: "Angebot 1", description: "Nudeln mit pikanter Paprikasauce und Reibekäse", prices: "1,40€ / 2,50€ / 4,50€", ingredients: ["http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/mais.png", "http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/sau.png", "http://www.studentenwerk-potsdam.de/fileadmin/_sellymenue/_images_alle/_web/menu_label/fisch.png"]});
-
-    $("#todaysMeals").append(htmlMeal);
-    $("#todaysMeals").append(htmlMeal);
-    $("#todaysMeals").append(htmlMeal);
-
     loadMenu("Griebnitzsee")
         .then(function (menu) {
             var meals = Q.when(selectMeals(menu))
@@ -71,7 +62,46 @@ function sortMealsByDate(meals) {
 }
 
 function drawMeals(meals, icons) {
-    // Lets have a look
+    var dayTemplate = $("#date-template").clone().html();
+    var createDay = _.template(dayTemplate);
+
+    var mealTemplate = $("#meal-template").clone().html();
+    var createMeal = _.template(mealTemplate);
+
+    for (var dayIndex in meals) {
+        // Prepare data for day section
+        var dayData = {};
+        dayData.title = meals[dayIndex].key;
+        dayData.contentId = _.uniqueId("id_");
+
+        // Add day section to html
+        var htmlDay = createDay(dayData);
+        $("#todaysMenu").append(htmlDay);
+
+        var dayMeals = meals[dayIndex].value.item;
+        for (var mealIndex in dayMeals) {
+            var meal = dayMeals[mealIndex];
+            var mealData = {};
+            mealData.title = meal.titel;
+            mealData.description= meal.beschreibung;
+            mealData.prices= meal.preise.entry[0].value + "€ / " + meal.preise.entry[1].value + "€ / " + meal.preise.entry[2].value + "€";
+
+            mealData.ingredients=[];
+            if ($.isArray(meal.essenstyp)) {
+                for (var typIndex in meal.essenstyp) {
+                    mealData.ingredients.push(icons[meal.essenstyp[typIndex]]);
+                }
+            } else {
+                mealData.ingredients.push(icons[meal.essenstyp]);
+            }
+
+            var htmlMeal = createMeal(mealData);
+            $("#" + dayData.contentId).append(htmlMeal);
+        }
+    }
+
+    // Tell collapsable set to refresh itself
+    $("#todaysMenu").collapsibleset("refresh");
 }
 
 /**

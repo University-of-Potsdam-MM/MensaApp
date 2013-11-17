@@ -17,6 +17,14 @@
     <script src="scripts/mensaParserWs.js"></script>
     <script src="scripts/mensa-logic.js"></script>
 
+    <script type="text/html" id="date-template">
+        <div data-role="collapsible" data-collapsed="false">
+            <h3><%= title %></h3>
+
+            <div id="<%= contentId %>"></div>
+        </div>
+    </script>
+
     <script type="text/html" id="meal-template">
         <div class="meal">
             <h4 class="meal-header"><%= title %></h4>
@@ -57,33 +65,7 @@
             </div>
         </div>
         <div data-role="content">
-            <div data-role="collapsible-set" data-theme="b" data-content-theme="b">
-                <div data-role="collapsible" data-collapsed="false">
-                    <h3>Heute</h3>
-
-                    <div id="todaysMeals"></div>
-                </div>
-                <div data-role="collapsible" data-collapsed="true">
-                    <h3>
-                        Morgen
-                    </h3>
-                </div>
-                <div data-role="collapsible" data-collapsed="true">
-                    <h3>
-                        13.11.
-                    </h3>
-                </div>
-                <div data-role="collapsible" data-collapsed="true">
-                    <h3>
-                        14.11.
-                    </h3>
-                </div>
-                <div data-role="collapsible" data-collapsed="true">
-                    <h3>
-                        15.11.
-                    </h3>
-                </div>
-            </div>
+            <div data-role="collapsible-set" data-theme="b" data-content-theme="b" id="todaysMenu"></div>
         </div>
     </div>
 </div>
