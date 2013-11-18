@@ -19,7 +19,9 @@ $(document).on("pageinit", "#start", function () {
 
             return [meals, icons];
         })
-        .spread(drawMeals)
+        .spread(prepareMeals)
+        .then(filterEmptyMeals)
+        .then(drawMeals)
         .fail(function () {
             alert("Fehlschlag");
         });
@@ -61,6 +63,21 @@ function sortMealsByDate(meals) {
     });
 }
 
+/**
+ * Prepare data for day section.
+ * @param icons
+ * @returns {Function}
+ */
+function mapToDay(icons) {
+    return function (day) {
+        var dayData = {};
+        dayData.title = new Date(day.key).toLocaleDateString();
+        dayData.contentId = _.uniqueId("id_");
+        dayData.meals = _.map(day.value.item, mapToMeal(icons));
+        return dayData;
+    }
+}
+
 function mapToMeal(icons) {
     return function (meal) {
         var mealData = {};
@@ -81,32 +98,37 @@ function mapToMeal(icons) {
     };
 }
 
-function drawMeals(meals, icons) {
+/**
+ * Prepare data.
+ * @param meals
+ * @param icons
+ */
+function prepareMeals(meals, icons) {
+    return _.map(meals, mapToDay(icons));
+}
+
+/**
+ * Filter a meal if its description is empty.
+ * @param days
+ * @returns {Array|*|j.map}
+ */
+function filterEmptyMeals(days) {
+    return _.map(days, function(day){
+        day.meals = _.filter(day.meals, function(meal){
+            return meal.description != "";
+        });
+        return day;
+    });
+}
+
+function drawMeals(days) {
     var dayTemplate = $("#date-template").clone().html();
     var createDay = _.template(dayTemplate);
 
     var mealTemplate = $("#meal-template").clone().html();
     var createMeal = _.template(mealTemplate);
 
-    var days = [];
-    for (var dayIndex in meals) {
-        // Prepare data for day section
-        var dayData = {};
-        dayData.title = new Date(meals[dayIndex].key).toLocaleDateString();
-        dayData.contentId = _.uniqueId("id_");
-        dayData.meals = [];
-
-        var dayMeals = meals[dayIndex].value.item;
-        for (var mealIndex in dayMeals) {
-            var meal = dayMeals[mealIndex];
-            var mealData = mapToMeal(icons)(meal);
-
-            dayData.meals.push(mealData);
-        }
-
-        days.push(dayData);
-    }
-
+    // Create html
     for (var dayIndex in days) {
         var dayData = days[dayIndex];
 
