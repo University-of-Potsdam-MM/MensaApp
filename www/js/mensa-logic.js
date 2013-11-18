@@ -5,11 +5,19 @@ $(document).ready(function () {
 
 $(document).on("pageinit", "#start", function () {
     $("#location-menu").bind("change", function (event, ui) {
-        var mensa = $("#location-menu option:selected").val();
-        alert("Neue Mensa: " + mensa);
+        updateMenu();
     });
+});
 
-    loadMenu("Griebnitzsee")
+$(document).on("pageshow", "#start", function () {
+    updateMenu();
+});
+
+function updateMenu() {
+    var mensa = $("#location-menu option:selected").val();
+
+    Q(clearMenu())
+        .then(function () { return loadMenu(mensa); })
         .then(function (menu) {
             var meals = Q(selectMeals(menu))
                 .then(sortMealsByDate)
@@ -25,7 +33,11 @@ $(document).on("pageinit", "#start", function () {
         .catch(function (e) {
             alert("Fehlschlag: " + JSON.stringify(e));
         });
-});
+}
+
+function clearMenu() {
+    $("#todaysMenu").empty();
+}
 
 /**
  * Loads all meals and some meta data for a given mensa.
@@ -36,7 +48,7 @@ function loadMenu(location) {
     var url = "http://fossa.soft.cs.uni-potsdam.de:8280/services/mensaParserJSON";
 
     // If we are not in an app environment, we have to use the local proxy
-    if (typeof app === 'undefined') {
+    if (navigator.app === undefined) {
         url = "/fossa-services/mensaParserJSON";
     }
 
@@ -142,7 +154,7 @@ function drawMeals(days) {
         $("#todaysMenu").append(htmlDay);
     })
 
-    // Tell collapsable set to refresh itself
+    // Tell collapsible set to refresh itself
     $("#todaysMenu").collapsibleset("refresh");
 
     // Open the first section

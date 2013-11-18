@@ -15,9 +15,6 @@
     <script src="js/underscore-min.js"></script>
     <script src="js/q.min.js"></script>
     <script src="js/mensa-logic.js"></script>
-    <script type="text/javascript">
-        app.initialize();
-    </script>
 
     <script type="text/html" id="meal-template">
         <div data-role="collapsible" data-collapsed="false" id="<%= contentId %>">
@@ -25,19 +22,19 @@
 
             <div>
                 <% _.each(meals, function(meal) { %>
-                    <div class="meal">
-                        <h4 class="meal-header"><%= meal.title %></h4>
+                <div class="meal">
+                    <h4 class="meal-header"><%= meal.title %></h4>
 
-                        <div class="ingredient-host">
-                            <% _.each(meal.ingredients, function(link) { %>
-                            <img class="ingredient" src="<%= link %>"/>
-                            <% }); %>
-                        </div>
-
-                        <p><%= meal.description %></p>
-
-                        <p class="meal-price"><%= meal.prices %></p>
+                    <div class="ingredient-host">
+                        <% _.each(meal.ingredients, function(link) { %>
+                        <img class="ingredient" src="<%= link %>"/>
+                        <% }); %>
                     </div>
+
+                    <p><%= meal.description %></p>
+
+                    <p class="meal-price"><%= meal.prices %></p>
+                </div>
                 <% }); %>
             </div>
         </div>
