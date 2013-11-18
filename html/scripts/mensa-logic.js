@@ -61,6 +61,26 @@ function sortMealsByDate(meals) {
     });
 }
 
+function mapToMeal(icons) {
+    return function (meal) {
+        var mealData = {};
+        mealData.title = meal.titel;
+        mealData.description= meal.beschreibung;
+        mealData.prices= meal.preise.entry[0].value + "€ / " + meal.preise.entry[1].value + "€ / " + meal.preise.entry[2].value + "€";
+
+        mealData.ingredients=[];
+        if ($.isArray(meal.essenstyp)) {
+            for (var typIndex in meal.essenstyp) {
+                mealData.ingredients.push(icons[meal.essenstyp[typIndex]]);
+            }
+        } else {
+            mealData.ingredients.push(icons[meal.essenstyp]);
+        }
+
+        return mealData;
+    };
+}
+
 function drawMeals(meals, icons) {
     var dayTemplate = $("#date-template").clone().html();
     var createDay = _.template(dayTemplate);
@@ -68,32 +88,34 @@ function drawMeals(meals, icons) {
     var mealTemplate = $("#meal-template").clone().html();
     var createMeal = _.template(mealTemplate);
 
+    var days = [];
     for (var dayIndex in meals) {
         // Prepare data for day section
         var dayData = {};
         dayData.title = new Date(meals[dayIndex].key).toLocaleDateString();
         dayData.contentId = _.uniqueId("id_");
+        dayData.meals = [];
+
+        var dayMeals = meals[dayIndex].value.item;
+        for (var mealIndex in dayMeals) {
+            var meal = dayMeals[mealIndex];
+            var mealData = mapToMeal(icons)(meal);
+
+            dayData.meals.push(mealData);
+        }
+
+        days.push(dayData);
+    }
+
+    for (var dayIndex in days) {
+        var dayData = days[dayIndex];
 
         // Add day section to html
         var htmlDay = createDay(dayData);
         $("#todaysMenu").append(htmlDay);
 
-        var dayMeals = meals[dayIndex].value.item;
-        for (var mealIndex in dayMeals) {
-            var meal = dayMeals[mealIndex];
-            var mealData = {};
-            mealData.title = meal.titel;
-            mealData.description= meal.beschreibung;
-            mealData.prices= meal.preise.entry[0].value + "€ / " + meal.preise.entry[1].value + "€ / " + meal.preise.entry[2].value + "€";
-
-            mealData.ingredients=[];
-            if ($.isArray(meal.essenstyp)) {
-                for (var typIndex in meal.essenstyp) {
-                    mealData.ingredients.push(icons[meal.essenstyp[typIndex]]);
-                }
-            } else {
-                mealData.ingredients.push(icons[meal.essenstyp]);
-            }
+        for (var mealIndex in dayData.meals) {
+            var mealData = dayData.meals[mealIndex];
 
             var htmlMeal = createMeal(mealData);
             $("#" + dayData.contentId).append(htmlMeal);
