@@ -11,10 +11,10 @@ $(document).on("pageinit", "#start", function () {
 
     loadMenu("Griebnitzsee")
         .then(function (menu) {
-            var meals = Q.when(selectMeals(menu))
+            var meals = Q(selectMeals(menu))
                 .then(sortMealsByDate)
 
-            var icons = Q.when(selectIcons(menu))
+            var icons = Q(selectIcons(menu))
                 .then(convertToMap);
 
             return [meals, icons];
@@ -22,7 +22,7 @@ $(document).on("pageinit", "#start", function () {
         .spread(prepareMeals)
         .then(filterEmptyMeals)
         .then(drawMeals)
-        .fail(function () {
+        .catch(function () {
             alert("Fehlschlag");
         });
 });
