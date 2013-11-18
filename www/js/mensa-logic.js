@@ -22,8 +22,8 @@ $(document).on("pageinit", "#start", function () {
         .spread(prepareMeals)
         .then(filterEmptyMeals)
         .then(drawMeals)
-        .catch(function () {
-            alert("Fehlschlag");
+        .catch(function (e) {
+            alert("Fehlschlag: " + JSON.stringify(e));
         });
 });
 
@@ -33,7 +33,7 @@ $(document).on("pageinit", "#start", function () {
  */
 function loadMenu(location) {
     var d = Q.defer();
-    $.get("/fossa-services/mensaParserJSON/readCurrentMeals?location=" + location).done(d.resolve).fail(d.reject);
+    $.get("http://fossa.soft.cs.uni-potsdam.de:8280/services/mensaParserJSON/readCurrentMeals?location=" + location).done(d.resolve).fail(d.reject);
     return d.promise;
 }
 
