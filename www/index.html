@@ -19,27 +19,27 @@
         app.initialize();
     </script>
 
-    <script type="text/html" id="date-template">
-        <div data-role="collapsible" data-collapsed="false">
+    <script type="text/html" id="meal-template">
+        <div data-role="collapsible" data-collapsed="false" id="<%= contentId %>">
             <h3><%= title %></h3>
 
-            <div id="<%= contentId %>"></div>
-        </div>
-    </script>
+            <div>
+                <% _.each(meals, function(meal) { %>
+                    <div class="meal">
+                        <h4 class="meal-header"><%= meal.title %></h4>
 
-    <script type="text/html" id="meal-template">
-        <div class="meal">
-            <h4 class="meal-header"><%= title %></h4>
+                        <div class="ingredient-host">
+                            <% _.each(meal.ingredients, function(link) { %>
+                            <img class="ingredient" src="<%= link %>"/>
+                            <% }); %>
+                        </div>
 
-            <div class="ingredient-host">
-                <% _.each(ingredients, function(link) { %>
-                    <img class="ingredient" src="<%= link %>"/>
+                        <p><%= meal.description %></p>
+
+                        <p class="meal-price"><%= meal.prices %></p>
+                    </div>
                 <% }); %>
             </div>
-
-            <p><%= description %></p>
-
-            <p class="meal-price"><%= prices %></p>
         </div>
     </script>
 </head>
